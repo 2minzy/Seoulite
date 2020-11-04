@@ -4,7 +4,7 @@ import { API_URL } from '../Config'
 const { kakao } = window;
 
 export default function Map() {
-  const [toilets, setToilets] = useState([]);
+  const [wifi, setWifi] = useState([]);
   const mapElement = useRef(null);
   
   useEffect(() => {
@@ -12,8 +12,8 @@ export default function Map() {
       try {
         const response = await axios.get(API_URL)
         // handle success
-        console.log(response.data.SearchPublicToiletPOIService.row);
-        setToilets(response.data.SearchPublicToiletPOIService.row);
+        // console.log(response.data.SebcPublicWifiEng);
+        setWifi(response.data.SebcPublicWifiEng.row);
       } catch(error) {
         // handle error
         console.log(error);
@@ -32,20 +32,20 @@ export default function Map() {
       //mapƒ
       const map = new kakao.maps.Map(mapElement.current, options);
   
-      toilets.forEach((el) => {
+      wifi.forEach((el) => {
         // 마커를 생성합니다
           new kakao.maps.Marker({
           //마커가 표시 될 지도
           map: map,
           //마커가 표시 될 위치
-          position: new kakao.maps.LatLng(el.Y_WGS84, el.X_WGS84),
+          position: new kakao.maps.LatLng(el.WGS84_Y, el.WGS84_X),
           //마커에 hover시 나타날 title
-          title: el.FNAME,
+          title: el.NAME_ENG,
         });
       });
     }
     initMap();
-  }, [toilets]);
+  }, [wifi]);
 
   // const mapscript = () => {
   //   let container = document.getElementById("map");
