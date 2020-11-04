@@ -1,0 +1,1 @@
+export const API_URL = 'http://openapi.seoul.go.kr:8088/455056775562626939396573776c52/json/SearchPublicToiletPOIService/1/200/';
