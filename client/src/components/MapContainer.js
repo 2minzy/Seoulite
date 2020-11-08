@@ -10,7 +10,7 @@ export default function Map({ district, userLocation }) {
   useEffect(() => {
     const options = {
       center: new kakao.maps.LatLng(37.573, 126.9794),
-      level: 8,
+      level: 9,
     };
 
     // 지도를 생성합니다
@@ -24,10 +24,15 @@ export default function Map({ district, userLocation }) {
   }, []);
 
   useEffect(() => {
-    const initMap = () => {
-      wifiLocation.forEach(el => {
+    if (map !== null) {
+      const clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 6, // 클러스터 할 최소 지도 레벨
+      });
+      const markers = wifiLocation.map(el => {
         // 마커를 생성합니다
-        new kakao.maps.Marker({
+        return new kakao.maps.Marker({
           //마커가 표시 될 지도
           map: map,
           //마커가 표시 될 위치
@@ -36,6 +41,24 @@ export default function Map({ district, userLocation }) {
           title: el.NAME_ENG,
         });
       });
+
+      clusterer.addMarkers(markers);
+    }
+  }, [wifiLocation, map]);
+
+  useEffect(() => {
+    const initMap = () => {
+      // wifiLocation.forEach(el => {
+      //   // 마커를 생성합니다
+      //   new kakao.maps.Marker({
+      //     //마커가 표시 될 지도
+      //     map: map,
+      //     //마커가 표시 될 위치
+      //     position: new kakao.maps.LatLng(el.WGS84_Y, el.WGS84_X),
+      //     //마커에 hover시 나타날 title
+      //     title: el.NAME_ENG,
+      //   });
+      // });
 
       // 장소 검색 객체를 생성합니다
       const ps = new kakao.maps.services.Places();
