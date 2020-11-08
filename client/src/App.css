@@ -2,6 +2,10 @@ body {
   margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+}
+
 button {
   border: none;
   outline: none;
@@ -26,6 +30,7 @@ input {
 
 .nav__logo {
   font-size: 1.8rem;
+  color: white;
 }
 
 .nav__search__input {

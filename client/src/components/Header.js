@@ -9,6 +9,13 @@ const Header = ({ onSearch, onLocation }) => {
     onSearch(value);
   };
 
+  const onKeyPress = e => {
+    if (e.keyCode === 13) {
+      const value = inputElement.current.value;
+      onSearch(value);
+    }
+  };
+
   const getCurrentLocation = e => {
     e.preventDefault();
     console.log('clicked!');
@@ -24,13 +31,16 @@ const Header = ({ onSearch, onLocation }) => {
 
   return (
     <div className='nav'>
-      <div className='nav__logo'>SeoulWIFI Guide</div>
+      <a href='/' className='nav__logo'>
+        SeoulWIFI Guide
+      </a>
       <div className='nav__search'>
         <input
           type='text'
           className='nav__search__input'
           placeholder='Search location'
           ref={inputElement}
+          onKeyDown={onKeyPress}
         />
         <button className='nav__search__btn' onClick={onSubmit}>
           SEARCH
