@@ -7,9 +7,10 @@ export default function Map({ district, userLocation }) {
   const [map, setMap] = useState(null);
   const mapElement = useRef(null);
 
+  // Initialize map
   useEffect(() => {
     const options = {
-      center: new kakao.maps.LatLng(37.573, 126.9794),
+      center: new kakao.maps.LatLng(37.5326, 126.99),
       level: 9,
     };
 
@@ -23,6 +24,22 @@ export default function Map({ district, userLocation }) {
     setMap(map);
   }, []);
 
+  // Fetch API location data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const locations = await fetchLocations();
+        // handle success
+        setWifiLocation(locations);
+      } catch (error) {
+        // handle error
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Create clusterer and set markers
   useEffect(() => {
     if (map !== null) {
       const clusterer = new kakao.maps.MarkerClusterer({
@@ -46,21 +63,9 @@ export default function Map({ district, userLocation }) {
     }
   }, [wifiLocation, map]);
 
+  // Search location with keyword
   useEffect(() => {
-    const initMap = () => {
-      // wifiLocation.forEach(el => {
-      //   // 마커를 생성합니다
-      //   new kakao.maps.Marker({
-      //     //마커가 표시 될 지도
-      //     map: map,
-      //     //마커가 표시 될 위치
-      //     position: new kakao.maps.LatLng(el.WGS84_Y, el.WGS84_X),
-      //     //마커에 hover시 나타날 title
-      //     title: el.NAME_ENG,
-      //   });
-      // });
-
-      // 장소 검색 객체를 생성합니다
+    if (map !== null) {
       const ps = new kakao.maps.services.Places();
 
       const placesSearchCB = (data, status, pagination) => {
@@ -76,26 +81,10 @@ export default function Map({ district, userLocation }) {
       if (district !== '') {
         ps.keywordSearch(district, placesSearchCB);
       }
-    };
-    if (map !== null) {
-      initMap();
     }
   }, [wifiLocation, district, map]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const locations = await fetchLocations();
-        // handle success
-        setWifiLocation(locations);
-      } catch (error) {
-        // handle error
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
+  // Get user current location
   useEffect(() => {
     if (map !== null) {
       const { lat, lng } = userLocation;

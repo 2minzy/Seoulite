@@ -32,13 +32,13 @@ const Header = ({ onSearch, onLocation }) => {
   return (
     <div className='nav'>
       <a href='/' className='nav__logo'>
-        SeoulWIFI Guide
+        Seoul<span>WIFI</span> Guide
       </a>
       <div className='nav__search'>
         <input
           type='text'
           className='nav__search__input'
-          placeholder='Search location'
+          placeholder='Search location                                            ex) 서울역(seoul station)'
           ref={inputElement}
           onKeyDown={onKeyPress}
         />

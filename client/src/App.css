@@ -33,6 +33,10 @@ input {
   color: white;
 }
 
+.nav__logo span {
+  color: #258cfa;
+}
+
 .nav__search__input {
   width: 400px;
   height: 30px;
