@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { API_URL } from '../Config';
+import { fetchLocations } from '../services/seoulWifiAPI';
 const { kakao } = window;
 
 export default function Map({ district, userLocation }) {
@@ -63,10 +62,8 @@ export default function Map({ district, userLocation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_URL);
-        const locations = response.data.SebcPublicWifiEng.row;
+        const locations = await fetchLocations();
         // handle success
-        // console.log(response.data.SebcPublicWifiEng);
         setWifiLocation(locations);
       } catch (error) {
         // handle error
