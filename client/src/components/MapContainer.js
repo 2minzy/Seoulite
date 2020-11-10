@@ -95,10 +95,19 @@ export default function Map({ district, userLocation }) {
         map.setLevel(4);
         displayMarker(locPosition, message);
         function displayMarker(locPosition, message) {
+          const imageSrc =
+            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+          // 마커 이미지의 이미지 크기 입니다
+          const imageSize = new kakao.maps.Size(24, 35);
+
+          // 마커 이미지를 생성합니다
+          const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
           // 마커를 생성합니다
           const marker = new kakao.maps.Marker({
             map: map,
             position: locPosition,
+            image: markerImage, // 마커 이미지
           });
 
           const iwContent = message, // 인포윈도우에 표시할 내용

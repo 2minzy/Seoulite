@@ -18,14 +18,14 @@ const Header = ({ onSearch, onLocation }) => {
 
   const getCurrentLocation = e => {
     e.preventDefault();
-    console.log('clicked!');
-    if ('geolocation' in navigator) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        console.log(lat, lng);
         onLocation(lat, lng);
       });
+    } else {
+      alert('Geolocation is not supported by this browser.');
     }
   };
 

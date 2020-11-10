@@ -12,7 +12,6 @@ function App() {
 
   const onUserInputDistrict = value => {
     setDistrict(value);
-    console.log(value);
   };
 
   const onUserLocation = (lat, lng) => {
