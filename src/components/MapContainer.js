@@ -94,6 +94,7 @@ export default function Map({ district, userLocation }) {
           '<div style="padding:5px; width: 180px;"><b>Your current location!</b></div>';
         map.setLevel(4);
         displayMarker(locPosition, message);
+
         function displayMarker(locPosition, message) {
           const imageSrc =
             'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
