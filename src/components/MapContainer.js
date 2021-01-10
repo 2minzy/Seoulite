@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import { fetchLocations } from '../services/seoulWifiAPI';
 const { kakao } = window;
 
@@ -91,7 +92,7 @@ export default function Map({ district, userLocation }) {
       if (lat !== 0 && lng !== 0) {
         const locPosition = new kakao.maps.LatLng(lat, lng);
         const message =
-          '<div style="padding:5px; width: 180px;"><b>Your current location!</b></div>';
+          '<div style="padding:5px; width: 150px; color: #3b8686;"><b>Hi mate! I\'m here!</b></div>';
         map.setLevel(4);
         displayMarker(locPosition, message);
 

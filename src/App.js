@@ -1,7 +1,25 @@
 import React, { useState } from 'react';
-import './App.css';
+import { createGlobalStyle } from 'styled-components';
 import Header from './components/Header';
 import MapContainer from './components/MapContainer';
+import { ThemeProvider } from 'styled-components';
+import theme from './components/theme';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0 auto;
+  }
+
+  a {
+  text-decoration: none;
+  }
+
+  button {
+    border: none;
+    outline: none;
+    text-align: center;
+  }
+`;
 
 function App() {
   const [district, setDistrict] = useState('');
@@ -20,8 +38,11 @@ function App() {
 
   return (
     <div>
-      <Header onSearch={onUserInputDistrict} onLocation={onUserLocation} />
-      <MapContainer district={district} userLocation={userLocation} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Header onSearch={onUserInputDistrict} onLocation={onUserLocation} />
+        <MapContainer district={district} userLocation={userLocation} />
+      </ThemeProvider>
     </div>
   );
 }
