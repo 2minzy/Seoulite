@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Header from './components/Header';
 import MapContainer from './components/MapContainer';
-import { ThemeProvider } from 'styled-components';
-import theme from './components/theme';
+import { darkTheme, lightTheme } from './components/theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,8 +27,14 @@ function App() {
     lng: 0,
   });
 
+  const [themeColor, setThemeColor] = useState('dark');
+
   const onUserInputDistrict = value => {
     setDistrict(value);
+  };
+
+  const onThemeColorChange = value => {
+    setThemeColor(value);
   };
 
   const onUserLocation = (lat, lng) => {
@@ -38,9 +43,13 @@ function App() {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeColor === 'dark' ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Header onSearch={onUserInputDistrict} onLocation={onUserLocation} />
+        <Header
+          onSearch={onUserInputDistrict}
+          onLocation={onUserLocation}
+          onThemeColor={onThemeColorChange}
+        />
         <MapContainer district={district} userLocation={userLocation} />
       </ThemeProvider>
     </div>

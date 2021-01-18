@@ -1,11 +1,13 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import Switch from './Switch';
 
 const Nav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-color: ${({ theme }) => theme.colors.headerBackground};
+
   font-family: 'Lato', sans-serif;
   padding: 0 60px;
   height: 100px;
@@ -13,14 +15,35 @@ const Nav = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     height: 120px;
     flex-direction: column;
+    align-items: center;
     padding: 20px 0;
+  } ;
+`;
+
+const NavTool = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: -180px;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-left: -12px;
+    p {
+      display: none;
+    }
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-left: 0;
+    p {
+      display: none;
+    }
   } ;
 `;
 
 const Logo = styled.a`
   font-family: 'Suez One', serif;
-  color: #a8dba8;
+  color: ${({ theme }) => theme.colors.color};
   font-size: 1.8rem;
+
   @media ${({ theme }) => theme.device.mobile} {
     font-size: 1.4rem;
     margin-bottom: 2px;
@@ -36,10 +59,10 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   background-color: transparent;
-  color: #c5e99b;
+  color: ${({ theme }) => theme.colors.color};
   outline: 0;
   border-width: 0 0 2px;
-  border-color: #c5e99b;
+  border-color: ${({ theme }) => theme.colors.color};
   width: 170px;
   height: 30px;
   @media ${({ theme }) => theme.device.mobile} {
@@ -50,7 +73,7 @@ const SearchInput = styled.input`
 const SearchBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
-  color: #c5e99b;
+  color: ${({ theme }) => theme.colors.color};
   font-size: 1rem;
   width: 100px;
   height: 30px;
@@ -62,16 +85,27 @@ const SearchBtn = styled.button`
   } ;
 `;
 
+const SwitchContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  p {
+    color: ${({ theme }) => theme.colors.switchColor};
+    font-size: 0.8rem;
+  }
+`;
+
 const MyLocation = styled.button`
-  background-color: #a8dba8;
-  color: #548687;
+  background-color: ${({ theme }) => theme.colors.btnBackground};
+  color: ${({ theme }) => theme.colors.btnFontColor};
   font-weight: 900;
   border-radius: 20px;
-  width: 200px;
+  width: 180px;
   height: 30px;
+  margin-left: 20px;
   cursor: pointer;
   &:hover {
-    background-color: #548687;
+    background-color: ${({ theme }) => theme.colors.btnFontColor};
     color: #a8dba8;
   }
   @media ${({ theme }) => theme.device.tablet} {
@@ -79,7 +113,13 @@ const MyLocation = styled.button`
   } ;
 `;
 
-const Header = ({ onSearch, onLocation }) => {
+// const Switch = styled.div`
+//   background-color: salmon;
+//   cursor: pointer;
+// `;
+
+const Header = ({ onSearch, onLocation, onThemeColor }) => {
+  const theme = useContext(ThemeContext);
   const inputElement = useRef(null); // render functuin didn't excuted yet(null)
 
   const onSubmit = e => {
@@ -107,6 +147,14 @@ const Header = ({ onSearch, onLocation }) => {
     }
   };
 
+  const toggleThemeColor = () => {
+    if (theme.name === 'light') {
+      onThemeColor('dark');
+    } else {
+      onThemeColor('light');
+    }
+  };
+
   return (
     <>
       <Nav>
@@ -120,7 +168,22 @@ const Header = ({ onSearch, onLocation }) => {
             onKeyDown={onKeyPress}
           />
         </SearchContainer>
-        <MyLocation onClick={getCurrentLocation}>MY LOCATION</MyLocation>
+        <NavTool>
+          <SwitchContainer>
+            {theme.name === 'dark' ? (
+              <p>Switch to Light Mode</p>
+            ) : (
+              <p>Switch to Dark Mode</p>
+            )}
+            <Switch
+              isOn={theme.name === 'light'}
+              onColor='#333'
+              handleToggle={toggleThemeColor}
+            ></Switch>
+          </SwitchContainer>
+
+          <MyLocation onClick={getCurrentLocation}>MY LOCATION</MyLocation>
+        </NavTool>
       </Nav>
     </>
   );
