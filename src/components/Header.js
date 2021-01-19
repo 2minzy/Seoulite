@@ -113,14 +113,9 @@ const MyLocation = styled.button`
   } ;
 `;
 
-// const Switch = styled.div`
-//   background-color: salmon;
-//   cursor: pointer;
-// `;
-
 const Header = ({ onSearch, onLocation, onThemeColor }) => {
   const theme = useContext(ThemeContext);
-  const inputElement = useRef(null); // render functuin didn't excuted yet(null)
+  const inputElement = useRef(null);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -135,7 +130,7 @@ const Header = ({ onSearch, onLocation, onThemeColor }) => {
     }
   };
 
-  const getCurrentLocation = e => {
+  const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         const lat = position.coords.latitude;
