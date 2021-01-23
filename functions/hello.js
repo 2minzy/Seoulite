@@ -1,4 +1,4 @@
-const axios = reuqire('axios');
+const axios = require('axios');
 
 exports.handler = async (event, context) => {
   try {
