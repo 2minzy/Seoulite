@@ -15,7 +15,6 @@ const Loading = styled.div`
 
 export default function Map({ district, userLocation }) {
   const [wifiLocation, setWifiLocation] = useState([]);
-
   const [map, setMap] = useState(null);
   const mapElement = useRef(null);
 
@@ -144,7 +143,7 @@ export default function Map({ district, userLocation }) {
 
   return (
     <>
-      {wifiLocation !== [] ? (
+      {map !== null ? (
         <div ref={mapElement} style={{ width: '100vw', height: '100vh' }}></div>
       ) : (
         <Loading>
