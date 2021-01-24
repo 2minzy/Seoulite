@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import styled from 'styled-components';
 import { fetchLocations } from '../services/seoulWifiAPI';
+import loading from '../images/Loading.gif';
 const { kakao } = window;
+
+const Loading = styled.div`
+  margin: auto;
+  text-align: center;
+
+  img {
+    width: 100px;
+  }
+`;
 
 export default function Map({ district, userLocation }) {
   const [wifiLocation, setWifiLocation] = useState([]);
+
   const [map, setMap] = useState(null);
   const mapElement = useRef(null);
 
@@ -132,6 +143,14 @@ export default function Map({ district, userLocation }) {
   }, [userLocation, map]);
 
   return (
-    <div ref={mapElement} style={{ width: '100vw', height: '100vh' }}></div>
+    <>
+      {wifiLocation !== [] ? (
+        <div ref={mapElement} style={{ width: '100vw', height: '100vh' }}></div>
+      ) : (
+        <Loading>
+          <img src={loading} alt='' />
+        </Loading>
+      )}
+    </>
   );
 }
