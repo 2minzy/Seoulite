@@ -9,6 +9,8 @@ exports.handler = async (event, context) => {
     const locations = response.data.SebcPublicWifiEng.row;
     const totalCount = response.data.SebcPublicWifiEng.list_total_count;
 
+    console.log(response.data);
+
     if (totalCount > end) {
       const newStart = end + 1;
       const newEnd = Math.min(end + MAX_ROWS, totalCount);
@@ -20,6 +22,8 @@ exports.handler = async (event, context) => {
 
   try {
     const locations = fetchLocations();
+
+    console.log(locations);
 
     return {
       statusCode: 200,
