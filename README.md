@@ -42,12 +42,6 @@
 패치한 api의 위치정보 양이 방대하여 Kakao map api에서 제공하는 MarkerClusterer를 이용하여 위치 마커 정보를 **클러스터화** 하였습니다.<br />
 **지도의 확대와 축소가 가능**하며, **오른쪽 상단의 줌 컨트롤러**를 이용하여 확대 축소도 가능하도록 구현하였습니다.<br />
 
-마커 클러스터러 도입을 결심한 이유는 클러스터화 하기 전의 마커 정보는 데이터 량이 많아 이렇게 아래 스크린샷과 같이 어마 무시하게 보이기 때문입니다...💩<br />
-[카카오 맵 API 마커 클러스터러 사용하기 링크](https://apis.map.kakao.com/web/sample/basicClusterer/)<br />
-
-![](https://images.velog.io/images/bbio3o/post/608f99cd-3843-46dd-b0e1-fb362f2e7f8b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-01-20%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.48.26.jpg)
-
-<br />
 
 ### ✨ 지도 위치검색 기능
 ![](https://images.velog.io/images/bbio3o/post/da3328fd-39a8-48ee-8fef-6cbaa0c2446a/%E1%84%8C%E1%85%B5%E1%84%83%E1%85%A9%E1%84%80%E1%85%A5%E1%86%B7%E1%84%89%E1%85%A2%E1%86%A8.gif)
